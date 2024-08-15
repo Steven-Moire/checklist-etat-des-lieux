@@ -1,24 +1,20 @@
-document.addEventListener("DOMContentLoaded", function() {
-    fetch('items.json') // Chemin relatif à la racine
-        .then(response => response.json())
-        .then(data => {
-            const checklist = document.getElementById('checklist');
-            data.items.forEach(item => { // Assurez-vous que 'items' est bien dans le JSON
-                const li = document.createElement('li');
-                li.innerHTML = `<input type="checkbox" id="${item.id}" ${item.checked ? 'checked' : ''}> <label for="${item.id}">${item.label}</label>`;
-                checklist.appendChild(li);
-
-                const checkbox = document.getElementById(item.id);
-
-                // Écouter le changement d'état de la case à cocher
-                checkbox.addEventListener('change', function() {
-                    item.checked = checkbox.checked;
-                    updateJSON(data);
-                });
-            });
-        })
-        .catch(error => console.error('Erreur lors du chargement du JSON:', error));
-});
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('items.json')
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data.items)) {
+          data.items.forEach(item => {
+            // Traitement des éléments ici
+            console.log(item.label);  // Affiche chaque label dans la console
+          });
+        } else {
+          console.error('Les données JSON ne contiennent pas un tableau d\'items.');
+        }
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement du JSON:', error);
+      });
+  });  
 
 function updateJSON(data) {
     fetch('items.json', { // Chemin relatif à la racine
