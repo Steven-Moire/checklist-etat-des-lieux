@@ -1,0 +1,25 @@
+name: Sync JSON File
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Update JSON file
+        run: |
+          echo "Fichier JSON mis à jour"
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "steven.bordier@gmail.com"
+          git config --global user.name "Steven-Moire"
+          git add data/items.json
+          git commit -m "Mise à jour du fichier JSON"
+          git push

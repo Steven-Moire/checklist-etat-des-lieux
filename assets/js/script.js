@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('items.json')
+    fetch('data/items.json')
         .then(response => response.json())
         .then(data => {
             const checklist = document.getElementById('checklist');
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 const checkbox = document.getElementById(item.id);
 
-                // Écouter le changement d'état de la case à cocher
                 checkbox.addEventListener('change', function() {
                     item.checked = checkbox.checked;
                     updateJSON(data);
@@ -21,12 +20,16 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function updateJSON(data) {
-    fetch('update_items.php', {
-        method: 'POST',
+    fetch('https://api.github.com/repos/USERNAME/REPOSITORY/contents/data/items.json', {
+        method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'token YOUR_GITHUB_TOKEN'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+            message: 'Mise à jour des éléments de la checklist',
+            content: btoa(JSON.stringify(data))
+        })
     })
     .then(response => response.json())
     .then(result => {
