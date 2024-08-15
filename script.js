@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetch('items.json')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erreur réseau lors du chargement du fichier JSON.');
+        }
+        return response.json();
+      })
       .then(data => {
         if (Array.isArray(data.items)) {
           data.items.forEach(item => {
@@ -14,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(error => {
         console.error('Erreur lors du chargement du JSON:', error);
       });
-  });  
+  });
 
 function updateJSON(data) {
     fetch('items.json', { // Chemin relatif à la racine
