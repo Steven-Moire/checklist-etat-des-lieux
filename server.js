@@ -8,7 +8,7 @@ const port = 3000;
 // Configurez Body-Parser
 app.use(bodyParser.json());
 
-// Configurez Express pour servir les fichiers statiques
+// Servir les fichiers statiques depuis le dossier 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Créez une connexion à la base de données SQLite
