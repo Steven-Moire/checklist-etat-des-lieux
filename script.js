@@ -7,18 +7,19 @@ document.addEventListener("DOMContentLoaded", function() {
             data.forEach((item, index) => {
                 const id = `item${index + 1}`;
                 const li = document.createElement('li');
-                li.innerHTML = `<input type="checkbox" id="${id}"> <label for="${id}">${item}</label>`;
+                li.innerHTML = `<input type="checkbox" id="${id}" data-index="${index}"> <label for="${id}">${item}</label>`;
                 checklist.appendChild(li);
 
-                // Récupérer la case à cocher
                 const checkbox = document.getElementById(id);
-                
-                // Restaurer l'état des cases cochées depuis le localStorage
-                const isChecked = localStorage.getItem(id) === 'true';
-                checkbox.checked = isChecked;
 
-                // Sauvegarder l'état dans le localStorage à chaque changement
-                checkbox.addEventListener('change', () => {
+                // Vérifier si l'item est enregistré dans le localStorage et restaurer l'état
+                const savedState = localStorage.getItem(id);
+                if (savedState !== null) {
+                    checkbox.checked = savedState === 'true';
+                }
+
+                // Écouter le changement d'état de la case à cocher
+                checkbox.addEventListener('change', function() {
                     localStorage.setItem(id, checkbox.checked);
                 });
             });
