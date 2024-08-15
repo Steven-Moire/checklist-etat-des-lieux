@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('/data/items.json') // Chemin relatif depuis docs/
+    fetch('items.json') // Chemin relatif depuis docs/
         .then(response => response.json())
         .then(data => {
             const checklist = document.getElementById('checklist');
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function updateJSON(data) {
-    fetch('/data/items.json', { // Chemin relatif depuis docs/
+    fetch('items.json', { // Chemin relatif depuis docs/
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
