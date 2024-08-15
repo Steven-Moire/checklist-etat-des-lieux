@@ -73,7 +73,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git add data/items.json
+          git add items.json
           git commit -m "Mise à jour du fichier JSON" || echo "No changes to commit"
           git push
         env:
