@@ -3,9 +3,10 @@ fetch('items.json')
     .then(response => response.json())
     .then(data => {
         const checklist = document.getElementById('checklist');
-        data.forEach(item => {
+        data.forEach((item, index) => {
             const li = document.createElement('li');
-            li.innerHTML = `<input type="checkbox" id="${item.id}"> <label for="${item.id}">${item.label}</label>`;
+            const id = `item${index + 1}`;
+            li.innerHTML = `<input type="checkbox" id="${id}"> <label for="${id}">${item}</label>`;
             checklist.appendChild(li);
         });
     })
