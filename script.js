@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('items.json') // Chemin relatif depuis docs/
+    fetch('items.json') // Chemin relatif à la racine
         .then(response => response.json())
         .then(data => {
             const checklist = document.getElementById('checklist');
-            data.forEach(item => {
+            data.items.forEach(item => { // Assurez-vous que 'items' est bien dans le JSON
                 const li = document.createElement('li');
                 li.innerHTML = `<input type="checkbox" id="${item.id}" ${item.checked ? 'checked' : ''}> <label for="${item.id}">${item.label}</label>`;
                 checklist.appendChild(li);
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function updateJSON(data) {
-    fetch('items.json', { // Chemin relatif depuis docs/
+    fetch('items.json', { // Chemin relatif à la racine
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
