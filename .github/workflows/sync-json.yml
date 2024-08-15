@@ -21,10 +21,6 @@ jobs:
 
       - name: Update JSON file
         run: |
-          # Exemple de mise à jour du fichier JSON
-          # Vous pouvez remplacer ceci par le code réel pour mettre à jour votre fichier JSON
-          # Assurez-vous de remplacer cette ligne par une commande pour générer ou modifier le fichier JSON.
-          # Exemple : echo '{"items": [{"id": "item1", "label": "Example", "checked": false}]}' > data/items.json
           echo '{
             "items": [
               { "id": "item1", "label": "14 petites assiettes", "checked": false },
@@ -80,3 +76,5 @@ jobs:
           git add data/items.json
           git commit -m "Mise à jour du fichier JSON" || echo "No changes to commit"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
