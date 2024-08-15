@@ -64,7 +64,7 @@ jobs:
               { "id": "item39", "label": "1 gril", "checked": false },
               { "id": "item40", "label": "6 pots grès", "checked": false }
             ]
-          }' > data/items.json
+          }' > items.json
 
       - name: Configure Git
         run: |
