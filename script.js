@@ -1,28 +1,38 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Charger les items depuis le fichier JSON
     fetch('items.json')
         .then(response => response.json())
         .then(data => {
             const checklist = document.getElementById('checklist');
-            data.forEach((item, index) => {
-                const id = `item${index + 1}`;
+            data.forEach(item => {
                 const li = document.createElement('li');
-                li.innerHTML = `<input type="checkbox" id="${id}" data-index="${index}"> <label for="${id}">${item}</label>`;
+                li.innerHTML = `<input type="checkbox" id="${item.id}" ${item.checked ? 'checked' : ''}> <label for="${item.id}">${item.label}</label>`;
                 checklist.appendChild(li);
 
-                const checkbox = document.getElementById(id);
-
-                // Vérifier si l'item est enregistré dans le localStorage et restaurer l'état
-                const savedState = localStorage.getItem(id);
-                if (savedState !== null) {
-                    checkbox.checked = savedState === 'true';
-                }
+                const checkbox = document.getElementById(item.id);
 
                 // Écouter le changement d'état de la case à cocher
                 checkbox.addEventListener('change', function() {
-                    localStorage.setItem(id, checkbox.checked);
+                    item.checked = checkbox.checked;
+                    updateJSON(data);
                 });
             });
         })
         .catch(error => console.error('Erreur lors du chargement du JSON:', error));
 });
+
+function updateJSON(data) {
+    fetch('update_items.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Mise à jour réussie:', result);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la mise à jour du JSON:', error);
+    });
+}
