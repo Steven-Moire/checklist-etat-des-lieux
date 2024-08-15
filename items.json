@@ -1,0 +1,7 @@
+[
+    { "id": "item1", "label": "Inspecter les murs pour des fissures ou des trous" },
+    { "id": "item2", "label": "Vérifier les fenêtres et les portes" },
+    { "id": "item3", "label": "Tester l'électricité et les prises" },
+    { "id": "item4", "label": "Examiner les sols pour des dégâts" },
+    { "id": "item5", "label": "Vérifier la plomberie (robinets, éviers, etc.)" }
+]
